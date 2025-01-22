@@ -28,5 +28,5 @@ const UsuarioSchema = new Schema({
   },
 });
 
-// CREAMOS EL MODELO 
+// CREAMOS EL MODELO
 export const Usuario = model("Usuario", UsuarioSchema);
