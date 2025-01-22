@@ -4,7 +4,7 @@
 import mongoose from "mongoose";
 
 // CREAMOS UNA INSTANCIA DEL ROUTER CON LOS ENDPOINTS
-import router from "./router.js";
+import { router } from "./router.js";
 
 // CARGAMOS LA CONFIGURACIÓN DEL FICHERO .env
 process.loadEnvFile();

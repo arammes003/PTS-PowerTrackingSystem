@@ -5,7 +5,7 @@ MANEJA LOS ENDPOINTS */
 import express from "express";
 
 // CREAMOS UNA INSTANCIA DE EXPRESS
-const router = express();
+export const router = express();
 
 // ENDPOINTS
 // ENDPOINT INICIAL DE PRUEBA
@@ -15,6 +15,3 @@ function endpointInicial() {
 
 // RUTAS BASE
 router.use("/api", endpointInicial);
-
-// EXPORTAMOS EL ROUTER
-export default router;
