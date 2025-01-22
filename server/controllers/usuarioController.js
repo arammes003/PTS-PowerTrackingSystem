@@ -6,6 +6,9 @@ import bcrypt from "bcryptjs";
 // IMPORTAMOS EL MODELO DEL USUARIO
 import { Usuario } from "../models/usuarioModel.js";
 
+// IMPORTAMOS SERVICIO GENERAR TOKEN
+import { generarJWT } from "../services/jwt.js";
+
 // FUNCION REGISTRAR USUARIO
 export const signup = async (req, res) => {
   const { email, password } = req.body;
@@ -55,9 +58,11 @@ export const login = async (req, res) => {
         mensaje: "Credenciales incorrectas",
       });
 
+    const token = await generarJWT(usuario.id, usuario.email);
     return res.send({
       ok: true,
       mensaje: "Sesión iniciada con éxito",
+      token,
       usuario,
     });
   } catch (error) {
