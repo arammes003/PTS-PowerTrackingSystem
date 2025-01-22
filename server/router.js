@@ -7,11 +7,14 @@ import express from "express";
 // CREAMOS UNA INSTANCIA DE EXPRESS
 export const router = express();
 
-// ENDPOINTS
-// ENDPOINT INICIAL DE PRUEBA
-function endpointInicial() {
-  console.log("Bienvenido a PowerTrackinSystem");
-}
+// IMPORTAMOS RUTAS
+import { userRouter } from "./routes/usuarioRoutes.js";
 
-// RUTAS BASE
-router.use("/api", endpointInicial);
+// PERMITIMOS EL USO DE JSON
+router.use(express.json());
+router.use(express.urlencoded({ extended: true }));
+
+// ENDPOINTS
+
+// RUTAS USUARIO
+router.use("/api", userRouter);
