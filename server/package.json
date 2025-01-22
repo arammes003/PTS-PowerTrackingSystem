@@ -5,6 +5,7 @@
   "main": "index.js",
   "author": "Alfonso Ramirez Mestanza",
   "license": "MIT",
+  "type": "module",
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js"
@@ -13,6 +14,7 @@
     "nodemon": "^3.1.9"
   },
   "dependencies": {
-    "express": "^4.21.2"
+    "express": "^4.21.2",
+    "mongoose": "^8.9.5"
   }
 }
