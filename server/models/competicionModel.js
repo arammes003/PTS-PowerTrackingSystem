@@ -30,19 +30,19 @@ const CompeticionSchema = new Schema({
       },
       squat: {
         type: Number,
-        require: true,
+        required: true,
       },
       benchPress: {
         type: Number,
-        require: true,
+        required: true,
       },
       deadlift: {
         type: Number,
-        require: true,
+        required: true,
       },
       total: {
         type: Number,
-        require: true,
+        required: true,
       },
     },
   ],

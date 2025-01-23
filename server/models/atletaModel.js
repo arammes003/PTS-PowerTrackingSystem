@@ -7,66 +7,67 @@ import { Schema, model } from "mongoose";
 const AtletaSchema = new Schema({
   dni: {
     type: String,
-    require: true,
+    required: true,
     unique: true,
   },
   nombre: {
     type: String,
-    require: true,
+    required: true,
   },
   apellidos: {
     type: String,
-    require: true,
+    required: true,
   },
   club: {
     type: Schema.Types.ObjectId,
     ref: "Club",
+    required: true,
   },
   categoria: {
     type: Number,
-    require: true,
+    required: true,
   },
   genero: {
     type: String,
-    require: true,
+    required: true,
   },
   victorias: {
     type: Number,
-    require: false,
+    required: false,
     default: 0,
   },
   podios: {
     type: Number,
-    require: false,
+    required: false,
     default: 0,
   },
   trayectoria: {
     type: String,
-    require: true,
+    required: true,
   },
   imagen: {
     type: String,
-    require: true,
+    required: false,
   },
   debut: {
     type: Date,
-    require: false,
+    required: false,
   },
   nacimiento: {
     type: Date,
-    require: true,
+    required: true,
   },
   ciudad: {
     type: String,
-    require: true,
+    required: true,
   },
   provincia: {
     type: String,
-    require: true,
+    required: true,
   },
   altura: {
     type: Number,
-    require: true,
+    required: true,
   },
   competiciones: [
     {

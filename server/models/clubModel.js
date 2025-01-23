@@ -7,52 +7,52 @@ import { Schema, model } from "mongoose";
 const ClubSchema = new Schema({
   nombre: {
     type: String,
-    require: true,
+    required: true,
     unique: true,
   },
   fundador: {
     type: String,
-    require: true,
+    required: true,
   },
   ciudad: {
     type: String,
-    require: true,
+    required: true,
   },
   comunidadAutonoma: {
     type: String,
-    require: true,
+    required: true,
   },
   fechaCreacion: {
     type: Date,
-    require: true,
+    required: true,
   },
   historia: {
     type: String,
-    require: true,
+    required: true,
   },
   victorias: {
     type: Number,
-    require: false,
+    required: false,
   },
   podios: {
     type: Number,
-    require: false,
+    required: false,
   },
   partNacionales: {
     type: Number,
-    require: false,
+    required: false,
   },
   partInternacionales: {
     type: Number,
-    require: false,
+    required: false,
   },
   records: {
     type: Number,
-    require: false,
+    required: false,
   },
   avatar: {
     type: String,
-    require: false,
+    required: false,
   },
   atletas: [
     {
