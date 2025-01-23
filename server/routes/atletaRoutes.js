@@ -6,6 +6,7 @@ import express from "express";
 // IMPORTAMOS LAS FUNCIONES DEL CONTROLADOR
 import {
   createAtleta,
+  deleteAtleta,
   getAtletaById,
   getAtletas,
   updateAtleta,
@@ -19,3 +20,4 @@ atletaRouter.post("/atletas", createAtleta); // ENDPOINT CREAR ATLETA
 atletaRouter.get("/atletas", getAtletas); // ENDPOINT CREAR ATLETA
 atletaRouter.get("/atletas/:id", getAtletaById); // ENDPOINT CREAR ATLETA
 atletaRouter.put("/atletas/:id", updateAtleta); // ENDPOINT ACTUALIZAR ATLETA
+atletaRouter.delete("/atletas/:id", deleteAtleta); // ENDPOINT ACTUALIZAR ATLETA

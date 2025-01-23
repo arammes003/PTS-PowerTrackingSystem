@@ -168,3 +168,41 @@ export const updateAtleta = async (req, res) => {
     });
   }
 };
+
+// FUNCION QUE BORRA UN ATLETA
+export const deleteAtleta = async (req, res) => {
+  const idAtleta = req.params.id; // OBTENEMOS EL ID DEL ATLETA DE LOS PARAMETROS
+
+  try {
+    const atleta = await Atleta.findByIdAndDelete(idAtleta); // BUSCAMOS EL ATLETA A TRAVES DEL ID OBTENIDO
+
+    // SI NO EXISTE
+    if (!atleta) {
+      res.status(400).send({
+        ok: false,
+        mensaje: `EL atleta con id ${idAtleta} no existe`,
+      });
+    }
+
+    // PARA BORRAR UN ATLETA TAMBIEN TENEMOS QUE ELIMINARLO DEL CLUB
+    const club = await Club.findById(atleta.club); // BUSCAMOS EL CLUB
+
+    if (club) {
+      club.atletas.pull(atleta._id); // ELIMINAMOS EL ATLETA DEL ARRAY DE ATLERAS
+      await club.save(); // GUARDAMOS LOS CAMBIOS DEL CLUB
+    }
+
+    await Atleta.findByIdAndDelete(idAtleta); // BUSCAMOS Y ELIMINAMOS EL ATLETA
+
+    return res.status(200).send({
+      ok: true,
+      mensaje: `El atleta con dni ${atleta.dni} ha sido eliminado correctamente`,
+    });
+  } catch (error) {
+    return res.status(500).send({
+      ok: false,
+      mensaje: "Error al eliminar el atleta",
+      error: error.message,
+    });
+  }
+};
