@@ -14,7 +14,7 @@ export const createClub = async (req, res) => {
     }); // BUSCAMOS SI EL NOMBRE INTRODUCIDO YA EXISTE
 
     // SI EXISTE EL CLUB NO SE CREA
-    if (!nombre)
+    if (club)
       return res.status(400).send({
         ok: false,
         mensaje: "Ya existe un club con ese nombre",
