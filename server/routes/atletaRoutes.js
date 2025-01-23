@@ -4,10 +4,11 @@
 import express from "express";
 
 // IMPORTAMOS LAS FUNCIONES DEL CONTROLADOR
-import { createAtleta } from "../controllers/atletaController.js";
+import { createAtleta, getAtletas } from "../controllers/atletaController.js";
 
 // ROUTER
 export const atletaRouter = express.Router();
 
 // ENDPOINTS
 atletaRouter.post("/atletas", createAtleta); // ENDPOINT CREAR ATLETA
+atletaRouter.get("/atletas", getAtletas); // ENDPOINT CREAR ATLETA

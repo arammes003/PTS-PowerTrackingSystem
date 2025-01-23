@@ -52,3 +52,31 @@ export const createAtleta = async (req, res) => {
     });
   }
 };
+
+// FUNCION QUE DEVUELVE TODOS LOS ATLETAS
+export const getAtletas = async (req, res) => {
+  try {
+    const atletas = await Atleta.find(); // BUSCAMOS TODOS LOS ATELTAS
+
+    // EN CASO DE QUE NO SE OBTENGAN ATLETAS
+    if (!atletas)
+      res.status(400).send({
+        ok: false,
+        mensaje: "No existen atletas",
+      });
+
+    // SI SE OBTIENEN LOS MUESTRA
+    if (atletas)
+      res.status(200).send({
+        ok: true,
+        mensaje: "Obteniendo atletas...",
+        atletas,
+      });
+  } catch (error) {
+    res.status(500).send({
+      ok: false,
+      mensaje: "Error en el servidor",
+      error: error.message,
+    });
+  }
+};
