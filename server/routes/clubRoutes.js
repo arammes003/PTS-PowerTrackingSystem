@@ -4,11 +4,17 @@
 import express from "express";
 
 // IMPORTAMOS EL CONTROLADOR
-import { getClubes, createClub } from "../controllers/clubController.js";
+import {
+  getClubes,
+  createClub,
+  getClubById,
+} from "../controllers/clubController.js";
 
 // ROUTER
 export const clubRouter = express.Router();
 
 // ENDPOINTS
 clubRouter.get("/clubes", getClubes); // ENDPOINT GETCLUBES
+clubRouter.get("/clubes/:id", getClubById); // ENDPOINT GETCLUBBYID
 clubRouter.post("/clubes", createClub); // ENDPOINT CREAR CLUB
+  

@@ -3,7 +3,6 @@
 // IMPORTAMOS EL MODELO
 import { Club } from "../models/clubModel.js";
 
-<<<<<<< HEAD
 // FUNCION QUE CREA UN NUEVO CLUB
 export const createClub = async (req, res) => {
   let club = new Club();
@@ -36,8 +35,6 @@ export const createClub = async (req, res) => {
   }
 };
 
-=======
->>>>>>> 7afda207041dc1eaa774b641eef89a8c51a3e872
 // FUNCION QUE DEVUELVE TODOS LOS CLUBES
 export const getClubes = async (req, res) => {
   try {
@@ -58,6 +55,33 @@ export const getClubes = async (req, res) => {
     }
   } catch (error) {
     res.status(500).send({
+      ok: false,
+      mensaje: "Error en el servidor",
+      error: error.message,
+    });
+  }
+};
+
+// FUNCION QUE DEVUELVE UN CLUB EN ESPECIFICO
+export const getClubById = async (req, res) => {
+  const idClub = req.params.id;
+
+  try {
+    const club = await Club.findById(idClub);
+
+    if (!club)
+      return res.status(404).send({
+        ok: false,
+        mensaje: `El club con id ${idClub} no existe`,
+      });
+    else
+      res.status(200).send({
+        ok: true,
+        mensaje: `Club con id ${idClub} obtenido con éxito`,
+        club,
+      });
+  } catch (error) {
+    return res.status(500).send({
       ok: false,
       mensaje: "Error en el servidor",
       error: error.message,
