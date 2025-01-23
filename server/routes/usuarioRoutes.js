@@ -15,7 +15,7 @@ export const userRouter = express.Router();
 // ENDPOINTS
 userRouter.post(
   "/signup",
-  upload.fields([{ name: "image", macCount: 1 }]),
+  upload.fields([{ name: "avatar", maxCount: 1 }]),
   signup
 ); // ENDPOINT REGISTRO
 userRouter.post("/login", login); // ENDPOINT LOGIN
