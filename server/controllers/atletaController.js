@@ -80,3 +80,32 @@ export const getAtletas = async (req, res) => {
     });
   }
 };
+
+// FUNCION QUE DEVUELVE UN ATLETA EN ESPECIFICO
+export const getAtletaById = async (req, res) => {
+  const idAtleta = req.params.id; // OBTENEMOS EL ID DEL ATLETA DE LOS PARAMETROS
+
+  try {
+    const atleta = await Atleta.findById(idAtleta); // BUSCAMOS EL ATLETA EN NUESTRA BBDD
+
+    // SI NO EXISTE
+    if (!atleta)
+      return res.status(404).send({
+        ok: false,
+        mensaje: `Ese atleta no existe`,
+      });
+    // SI EXISTE DEVOLVEMOS LOS DATOS DEL ATLETA
+    else
+      res.status(200).send({
+        ok: true,
+        mensaje: `Datos de ${atleta.nombre} con dni ${atleta.dni} obtenidos con éxito`,
+        atleta,
+      });
+  } catch (error) {
+    return res.status(500).send({
+      ok: false,
+      mensaje: "Error en el servidor",
+      error: error.message,
+    });
+  }
+};
