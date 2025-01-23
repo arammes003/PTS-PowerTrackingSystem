@@ -3,7 +3,7 @@
 // IMPORTAMOS EXPRESS
 import express from "express";
 
-// IMPORTAMOS EL CONTROLADOR
+// IMPORTAMOS LAS FUNCIONES DEL CONTROLADOR
 import {
   getClubes,
   createClub,
