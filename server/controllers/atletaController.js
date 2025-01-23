@@ -109,3 +109,62 @@ export const getAtletaById = async (req, res) => {
     });
   }
 };
+
+// FUNCION QUE ACTUALIZA UN ATLETA
+export const updateAtleta = async (req, res) => {
+  const idAtleta = req.params.id; // OBTENEMOS EL ID DEL ATLETA DE LOS PARAMETROS
+  const params = req.body; // GUARDAMOS LOS DATOS INTRODUCIDOS EN EL BODY
+  const { idNuevoClub } = req.body; // COGEMOS EL ID DEL NUEVO CLUB EN CASO DE QUE VAYA A CAMBIAR
+
+  try {
+    const atleta = await Atleta.findById(idAtleta); // BUSCAMOS EL ATLETA EN LA BBDD
+
+    // SI NO EXISTE
+    if (!atleta) {
+      return res.status(400).send({
+        ok: false,
+        mensaje: `El atleta con id ${atleta} no existe`,
+      });
+    }
+
+    // SI EL ATLETA VA A CAMBIAR DE CLUB
+    if (idNuevoClub) {
+      // BUSCAMOS EL ANTIGUO CLUB Y ELIMINAMOS EL ATLETA
+      const antiguoClub = await Club.findById(atleta.club); // BUSCAMOS EL ANTIGUO CLUB
+      if (antiguoClub) {
+        antiguoClub.atletas.pull(atleta._id); // ELIMINAMOS EL ATLETA DEL ARRAY DE ATLETAS DEL CLUB
+        await antiguoClub.save(); // GUARDAMOS LOS CAMBIOS
+      }
+
+      const nuevoClub = await Club.findById(idNuevoClub); // BUSCAMOS EL NUEVO CLUB
+      // SI NO EXISTE
+      if (!nuevoClub)
+        return res.status(404).send({
+          ok: false,
+          mensaje: "El club al que deseas cambiar no existe",
+        });
+
+      // SI EXISTE
+      atleta.club = nuevoClub._id; // ASIGNAMOS AL ATLETA EL ID DEL NUEVO CLUB
+      nuevoClub.atletas.push(atleta._id); // INTRODUCIMOS EN EL ARRAY DE ATLETAS DEL CLUB EL NUEVO ATLETA
+      await nuevoClub.save(); // GUARDAMOS LOS CAMBIOS DEL CLUB
+    }
+
+    // ACTUALIZAMOS LOS DEMAS CAMPOS DEL USUARIO SI HAY
+    Object.assign(atleta, params); // ASIGNAMOS AL ATLETA LOS DEMAS CAMBIOS
+    await atleta.save(); // GUARDAMOS LOS CAMBIOS DEL ATLETA
+
+    return res.status(200).send({
+      ok: true,
+      mensaje: `Atleta con dni ${atleta.dni} ha sido actualizado con éxito`,
+      club: atleta.club,
+      atleta,
+    });
+  } catch (error) {
+    res.status(500).send({
+      ok: false,
+      mensaje: "Error del servidor",
+      error: error.message,
+    });
+  }
+};

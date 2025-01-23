@@ -8,6 +8,7 @@ import {
   createAtleta,
   getAtletaById,
   getAtletas,
+  updateAtleta,
 } from "../controllers/atletaController.js";
 
 // ROUTER
@@ -17,3 +18,4 @@ export const atletaRouter = express.Router();
 atletaRouter.post("/atletas", createAtleta); // ENDPOINT CREAR ATLETA
 atletaRouter.get("/atletas", getAtletas); // ENDPOINT CREAR ATLETA
 atletaRouter.get("/atletas/:id", getAtletaById); // ENDPOINT CREAR ATLETA
+atletaRouter.put("/atletas/:id", updateAtleta); // ENDPOINT ACTUALIZAR ATLETA
