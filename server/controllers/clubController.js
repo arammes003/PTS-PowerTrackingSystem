@@ -88,3 +88,31 @@ export const getClubById = async (req, res) => {
     });
   }
 };
+
+// FUNCION QUE ACTUALIZA UN CLUB
+export const updateClub = async (req, res) => {
+  const idClub = req.params.id;
+  const params = req.body;
+
+  try {
+    const club = await Club.findByIdAndUpdate(idClub, params);
+
+    if (!club)
+      return res.status(400).send({
+        ok: false,
+        mensaje: `El club con id ${idClub} no existe`,
+      });
+    else
+      res.status(200).send({
+        ok: true,
+        mensaje: `Club con id ${idClub} ha sido actualizado con éxito`,
+        club,
+      });
+  } catch {
+    return res.status(500).send({
+      ok: false,
+      mensaje: "Error en el servidor",
+      error: error.message,
+    });
+  }
+};
