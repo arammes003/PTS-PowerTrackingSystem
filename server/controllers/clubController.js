@@ -3,6 +3,7 @@
 // IMPORTAMOS EL MODELO
 import { Club } from "../models/clubModel.js";
 
+<<<<<<< HEAD
 // FUNCION QUE CREA UN NUEVO CLUB
 export const createClub = async (req, res) => {
   let club = new Club();
@@ -35,6 +36,8 @@ export const createClub = async (req, res) => {
   }
 };
 
+=======
+>>>>>>> 7afda207041dc1eaa774b641eef89a8c51a3e872
 // FUNCION QUE DEVUELVE TODOS LOS CLUBES
 export const getClubes = async (req, res) => {
   try {
