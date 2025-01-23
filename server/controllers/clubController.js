@@ -116,3 +116,30 @@ export const updateClub = async (req, res) => {
     });
   }
 };
+
+// FUNCION QUE BORRA UN CLUB
+export const deleteClub = async (req, res) => {
+  const idClub = req.params.id;
+
+  try {
+    const club = await Club.findByIdAndDelete(idClub);
+
+    if (!club)
+      return res.status(400).send({
+        ok: false,
+        mensaje: `El club con id ${idClub} no existe`,
+      });
+    else
+      return res.status(200).send({
+        ok: true,
+        mensaje: `El club ${club.nombre} ha sido eliminado con éxito`,
+        club,
+      });
+  } catch (error) {
+    return res.status(500).send({
+      ok: false,
+      mensaje: "Error en el servidor",
+      error: error.message,
+    });
+  }
+};
