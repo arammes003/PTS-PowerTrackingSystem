@@ -7,25 +7,25 @@ import { Schema, model } from "mongoose";
 const CompeticionSchema = new Schema({
   nombre: {
     type: String,
-    require: true,
+    required: true,
     unique: true,
   },
   localizacion: {
     type: String,
-    require: true,
+    required: true,
   },
   fecha: {
     type: Date,
-    require: true,
+    required: true,
   },
   imagen: {
     type: String,
-    require: false,
+    required: true,
   },
   resultados: [
     {
       atleta: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: Schema.Types.ObjectId,
         ref: "Atleta",
       },
       squat: {

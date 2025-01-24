@@ -11,6 +11,7 @@ export const router = express();
 import { userRouter } from "./routes/usuarioRoutes.js";
 import { clubRouter } from "./routes/clubRoutes.js";
 import { atletaRouter } from "./routes/atletaRoutes.js";
+import { compRouter } from "./routes/competicionRoutes.js";
 
 // IMPORTAMOS CORS PARA PERMITIR PETICIONES EXTERNAS
 import cors from "cors";
@@ -26,3 +27,4 @@ router.use(express.urlencoded({ extended: true }));
 router.use("/api", userRouter);
 router.use("/api", clubRouter);
 router.use("/api", atletaRouter);
+router.use("/api", compRouter);
