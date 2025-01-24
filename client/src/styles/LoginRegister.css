@@ -1,0 +1,298 @@
+.fondoLogin {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--text);
+}
+
+.container {
+  width: 55vw;
+  height: 80vh;
+  display: flex;
+  position: relative;
+  border-radius: 20px;
+  box-shadow: 0 0 12px var(--primary-900);
+}
+
+.formSection {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.loginForm {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.5s ease-in;
+}
+
+.loginForm h1 {
+  font-size: 3rem;
+  top: 8vh;
+  color: var(--text);
+  position: absolute;
+}
+
+.inputsForm a {
+  font-size: 1.2rem;
+}
+
+.loginForm .btnLogin {
+  bottom: 10vh;
+  position: absolute;
+}
+
+.container-input {
+  width: 300px;
+  height: 40px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 15px;
+  background-color: #eeeeee;
+  border-radius: 10px;
+}
+
+.container-input input {
+  border: none;
+  outline: none;
+  width: 100%;
+  background-color: inherit;
+  font-family: "Jockey One", sans-serif;
+  font-size: medium;
+}
+
+.container-input img {
+  width: 25px;
+}
+
+.loginForm a:nth-child(3) {
+  font-size: 1.2rem;
+  color: var(--text);
+}
+
+.redesLogin {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  bottom: 20vh;
+  gap: 15px;
+}
+
+.redesLogin button {
+  background-color: white;
+  cursor: pointer;
+  border: none;
+  border-radius: 10px;
+  padding: 10px;
+  cursor: pointer;
+  box-shadow: 0 2px 5px 0 rgb(0, 0, 0, 0.3);
+  transition: ease-in-out 0.3s;
+}
+
+.redesLogin button img {
+  width: 25px;
+}
+
+.redesLogin button:hover {
+  transform: scale(1.1);
+  transition: ease-in-out 0.3s;
+}
+
+.textoReset {
+  position: absolute;
+  bottom: 7vh;
+  font-size: 1rem;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.btnLogin {
+  width: 170px;
+  height: 45px;
+  font-size: 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: var(--secondary-500);
+  color: var(--text);
+  font-family: "Jockey One";
+  font-size: 1.2rem;
+  transition: ease-in-out 0.3s;
+}
+
+.btnLogin:hover {
+  transform: scale(1.1);
+}
+
+/* REGISTER */
+.registerForm {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.5s ease-in;
+}
+
+.registerForm h1 {
+  font-size: 3rem;
+  top: 8vh;
+  color: var(--text);
+  position: absolute;
+}
+
+.registerForm a:nth-child(3) {
+  font-size: 1.2rem;
+  color: var(--text);
+}
+
+.registerForm .btnRegistro {
+  bottom: 5vh;
+  position: absolute;
+}
+
+.registerForm {
+  transition: transform 0.5s ease-in;
+  transform: translateX(-100%);
+}
+
+.registerForm h1 {
+  font-size: 3rem;
+  top: 8vh;
+  color: var(--text);
+  position: absolute;
+}
+
+.redesRegistro {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  bottom: 16%;
+  gap: 15px;
+}
+
+.redesRegistro button {
+  background-color: white;
+  cursor: pointer;
+  border: none;
+  border-radius: 10px;
+  padding: 10px;
+  cursor: pointer;
+  box-shadow: 0 2px 5px 0 rgb(0, 0, 0, 0.3);
+  transition: ease-in-out 0.3s;
+}
+
+.redesRegistro button img {
+  width: 25px;
+}
+
+.redesRegistro button:hover {
+  transform: scale(1.1);
+  transition: ease-in-out 0.3s;
+}
+
+.btnRegistro {
+  width: 170px;
+  height: 45px;
+  font-size: 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: var(--secondary-500);
+  color: var(--text);
+  font-family: "Jockey One";
+  font-size: 1.2rem;
+  transition: ease-in-out 0.3s;
+}
+
+.btnRegistro:hover {
+  transform: scale(1.1);
+}
+
+/* APARTADO BIENVENIDA */
+.container.toggle .loginForm {
+  transform: translateX(100%);
+}
+
+.container.toggle .registerForm {
+  transform: translateX(0%);
+}
+
+.contenedorBienvenida {
+  background-color: var(--primary-900);
+  position: absolute;
+  width: 50%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transform: translateX(100%);
+  transition: transform 0.5s ease-in-out, border-radius 0.5s ease-in-out;
+  border-radius: 25% 15px 15px 20%;
+}
+
+.container.toggle .contenedorBienvenida {
+  transform: translateX(0);
+  border-radius: 15px 25% 20% 15px;
+}
+
+.contenedorBienvenida .welcome {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 0 50px;
+  color: white;
+}
+
+.contenedorBienvenida .welcome a {
+  width: 100px;
+  color: var(--secondary-500);
+}
+
+.bienvenidoLogin {
+  transform: translateX(100%);
+}
+
+.contenedorBienvenida h3 {
+  font-size: 40px;
+}
+
+.contenedorBienvenida p {
+  font-size: 20px;
+  text-align: center;
+}
+
+.contenedorBienvenida .button {
+  border: 2px solid white;
+  background-color: transparent;
+}
+
+.container.toggle .bienvenidoLogin {
+  transform: translateX(0);
+}
+
+.container.toggle .bienvenidoSignUp {
+  transform: translateX(-100%);
+}
+
+.error {
+  color: red;
+  font-size: 1em;
+  text-align: center;
+  font-family: "Kameron", serif;
+}
