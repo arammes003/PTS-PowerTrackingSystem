@@ -12,6 +12,10 @@ import { userRouter } from "./routes/usuarioRoutes.js";
 import { clubRouter } from "./routes/clubRoutes.js";
 import { atletaRouter } from "./routes/atletaRoutes.js";
 
+// IMPORTAMOS CORS PARA PERMITIR PETICIONES EXTERNAS
+import cors from "cors";
+router.use(cors());
+
 // PERMITIMOS EL USO DE JSON
 router.use(express.json());
 router.use(express.urlencoded({ extended: true }));
