@@ -6,6 +6,7 @@ import trophy from "../assets/imgs/icons/trophy.svg";
 import video from "../assets/imgs/icons/video.svg";
 
 import { Fragment, useEffect, useState } from "react";
+import { CardCompeticion } from "../components/CardCompeticion";
 
 export const Home = () => {
   const [competiciones, setCompeticiones] = useState([]);
@@ -30,6 +31,10 @@ export const Home = () => {
       });
   }, []);
 
+  const competicionesOrdenadas = [...competiciones].sort(
+    (a, b) => new Date(b.fecha) - new Date(a.fecha)
+  );
+
   return (
     <Fragment>
       <Header />
@@ -47,23 +52,14 @@ export const Home = () => {
                 <p>Cargando competiciones...</p>
               </article>
             )}
-            {competiciones && (
+            {competicionesOrdenadas && (
               <section className="sectionCompeticiones">
-                {competiciones.length > 0 &&
-                  competiciones.map((competicion) => (
-                    <article className="cardCompeticion" key={competicion._id}>
-                      <img
-                        src={competicion.imagen}
-                        alt={competicion.nombre}
-                        className="imgCompeticion"
-                      />
-                      <section className="infoCompeticion">
-                        <h2>{competicion.nombre}</h2>
-                        <p className="ubicacionComp">
-                          {competicion.localizacion} | {competicion.fecha}
-                        </p>
-                      </section>
-                    </article>
+                {competicionesOrdenadas.length > 0 &&
+                  competicionesOrdenadas.map((competicion) => (
+                    <CardCompeticion
+                      competicion={competicion}
+                      key={competicion._id}
+                    />
                   ))}
               </section>
             )}

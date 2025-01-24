@@ -1,11 +1,11 @@
 .competicionesHome {
   margin-left: 5%;
   margin-right: 5%;
+  flex-wrap: wrap;
 }
 
-.seccionHome {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin: 0 auto;
+.sectionCompeticiones {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 2.1em;
 }
