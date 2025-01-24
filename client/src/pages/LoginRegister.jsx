@@ -67,7 +67,7 @@ export const LoginRegister = () => {
       if (res.ok) {
         let userData = await res.json();
         login(userData);
-        navigate("/home");
+        navigate("/inicio");
       } else setErrorLogin("Las claves de acceso son incorrectas");
     }
   }
@@ -95,7 +95,7 @@ export const LoginRegister = () => {
       if (res.ok) {
         let userData = await res.json();
         login(userData);
-        navigate("/home");
+        navigate("/inicio");
       } else setErrorRegister("Datos incorrectos");
     }
   }
@@ -109,6 +109,10 @@ export const LoginRegister = () => {
   const toggleForm = () => {
     setIsLogin(!isLogin);
   };
+
+  function handleClickButtons(e) {
+    e.preventDefault();
+  }
 
   return (
     <main className="fondoLogin">
@@ -143,10 +147,10 @@ export const LoginRegister = () => {
             </section>
             <a>Ó inicia sesión con</a>
             <section className="redesLogin">
-              <button>
+              <button onClick={handleClickButtons}>
                 <img src={google} alt="Google Icon" />
               </button>
-              <button>
+              <button onClick={handleClickButtons}>
                 <img src={google} alt="Google Icon" />
               </button>
             </section>

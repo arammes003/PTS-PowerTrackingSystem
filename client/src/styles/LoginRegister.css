@@ -66,6 +66,7 @@
   outline: none;
   width: 100%;
   background-color: inherit;
+  color: var(--text);
   font-family: "Jockey One", sans-serif;
   font-size: medium;
 }

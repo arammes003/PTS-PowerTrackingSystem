@@ -1,0 +1,11 @@
+.competicionesHome {
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+.seccionHome {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 0 auto;
+}
