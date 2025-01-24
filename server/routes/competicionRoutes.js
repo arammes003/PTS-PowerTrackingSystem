@@ -4,7 +4,10 @@
 import express from "express";
 
 // IMPORTAMOS LAS FUNCIONES DEL CONTROLADOR
-import { createCompeticion } from "../controllers/competicionController.js";
+import {
+  createCompeticion,
+  getCompeticiones,
+} from "../controllers/competicionController.js";
 
 // IMPORTAMOS MIDDLEWARES
 import { upload } from "../middlewares/upload.js"; // MIDDLEWARE SUBIDA IMAGENES
@@ -18,3 +21,4 @@ compRouter.post(
   upload.fields([{ name: "imagen", maxCount: 1 }]),
   createCompeticion
 );
+compRouter.get("/competiciones", getCompeticiones);

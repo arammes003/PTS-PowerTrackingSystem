@@ -53,3 +53,31 @@ export const createCompeticion = async (req, res) => {
     });
   }
 };
+
+// FUNCION QUE DEVUELVE TODAS LAS COMPETICIONES
+export const getCompeticiones = async (req, res) => {
+  try {
+    const competiciones = await Competicion.find(); // BUSCAMOS TODAS LAS COMPETICIONES
+
+    // EN CASO DE QUE NO SE OBTENGAN COMPETICIONES
+    if (!competiciones)
+      res.status(404).send({
+        ok: false,
+        mensaje: "No existen competiciones",
+      });
+
+    // SI SE OBTIENEN LAS MUESTRA
+    if (competiciones)
+      res.status(200).send({
+        ok: true,
+        mensaje: "Obteniendo competiciones...",
+        competiciones,
+      });
+  } catch (error) {
+    res.status(500).send({
+      ok: false,
+      mensaje: "Error en el servidor",
+      error: error.message,
+    });
+  }
+};
