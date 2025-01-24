@@ -4,7 +4,7 @@
 import express from "express";
 
 // IMPORTAMOS EL CONTROLADOR
-import { signup, login } from "../controllers/usuarioController.js";
+import { signup, login, updateUser } from "../controllers/usuarioController.js";
 
 // IMPORTAMOS MIDDLEWARES
 import { upload } from "../middlewares/upload.js"; // MIDDLEWARE SUBIDA IMAGENES
@@ -19,3 +19,8 @@ userRouter.post(
   signup
 ); // ENDPOINT REGISTRO
 userRouter.post("/login", login); // ENDPOINT LOGIN
+userRouter.put(
+  "/user/:id",
+  upload.fields([{ name: "avatar", maxCount: 1 }]),
+  updateUser
+);

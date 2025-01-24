@@ -102,3 +102,48 @@ export const login = async (req, res) => {
     });
   }
 };
+
+// MANEJADOR QUE  SUBE UN ARCVHIVO A SUPABASE
+const handleAvatarUpload = async (avatar) => {
+  if (!avatar) return null; // SI NO SE PUEDE OBTENER EL AVATAR DEVUELVE NULL Y NO SE ACTUALIZA
+  return await uploadFile(avatar, "userAvatar"); // SI SE PUEDE, LLAMAMOS AL SERVICIO Y LE PASAMOS EL ARCHIVO Y EL NOMBRE DEL BUCKET
+};
+
+// FUNCION QUE ACTUALIZA EL USUARIO
+export const updateUser = async (req, res) => {
+  const { id } = req.params; // OBTENEMOS EL ID DEL USUARIO DE LOS PARÁMETROS
+  const params = { ...req.body }; // OBTENEMOS EL BODY CON LOS DATOS QUE QUIERE MODIFICAR EL USUARIO
+  const avatar = req.file || (req.files?.avatar ? req.files.avatar[0] : null); // AVATAR SI EL USUARIO QUIERE MODIFICARLO
+
+  try {
+    let usuario = await Usuario.findById(id); // BUSCAMOS EL USUARIO A TRAVÉS DEL ID PASADO POR PARÁMETROS
+    // SI NO SE ENCUENTRA EL USUARIO
+    if (!usuario) {
+      return res.status(404).send({
+        ok: false,
+        mensaje: "Usuario no encontrado",
+      });
+    }
+
+    // SI EL USUARIO INTRODUCE UNA IMAGEN
+    if (avatar) {
+      const avatarUrl = await handleAvatarUpload(avatar); // OBTENEMOS LA URL CREADA POR EL MANEJADOR QUE LLAMA AL SERVICIO DE UPLOADFILE
+      if (avatarUrl) params.avatar = avatarUrl; // AGREGAMOS LA URL CREADA AL OBJETO
+    }
+
+    usuario = await Usuario.findByIdAndUpdate(id, params, { new: true }); // ACTUALIZAMOS EL USUARIO CON LOS DATOS OBTENIDOS
+
+    // MENSAJE INFORMATIVO
+    return res.status(200).send({
+      ok: true,
+      mensaje: "Usuario actualizado con éxito",
+      usuario,
+    });
+  } catch (error) {
+    return res.status(500).send({
+      ok: false,
+      mensaje: "Error en el servidor",
+      error: error.message,
+    });
+  }
+};
