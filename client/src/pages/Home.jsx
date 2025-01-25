@@ -31,16 +31,49 @@ export const Home = () => {
       });
   }, []);
 
-  const competicionesOrdenadas = [...competiciones].sort(
-    (a, b) => new Date(b.fecha) - new Date(a.fecha)
-  );
+  const hoy = new Date();
 
+  // Filtrar competiciones futuras (próximas)
+  const proximasCompeticiones = competiciones
+    .filter((competicion) => new Date(competicion.fecha) >= hoy)
+    .sort((a, b) => new Date(a.fecha) - new Date(b.fecha)) // Orden ascendente (más próximas primero)
+    .slice(0, 4);
+
+  // Filtrar competiciones pasadas (últimas)
+  const ultimasCompeticiones = competiciones
+    .filter((competicion) => new Date(competicion.fecha) < hoy)
+    .sort((a, b) => new Date(b.fecha) - new Date(a.fecha)) // Orden descendente (más recientes primero)
+    .slice(0, 4);
   return (
     <Fragment>
       <Header />
 
       <main>
         <article className="competicionesHome">
+          <section className="titulo">
+            <img src={trophy} alt="Trophy Icon" />
+            <h1>Próximas competiciones</h1>
+          </section>
+          <section className="sectionAthletes">
+            {loading && (
+              <article className="loading">
+                <section className="loader"></section>
+                <p>Cargando competiciones...</p>
+              </article>
+            )}
+            {proximasCompeticiones && (
+              <section className="sectionCompeticiones">
+                {proximasCompeticiones.length > 0 &&
+                  proximasCompeticiones.map((competicion) => (
+                    <CardCompeticion
+                      competicion={competicion}
+                      key={competicion._id}
+                    />
+                  ))}
+              </section>
+            )}
+          </section>
+
           <section className="titulo">
             <img src={trophy} alt="Trophy Icon" />
             <h1>Últimas competiciones</h1>
@@ -52,10 +85,10 @@ export const Home = () => {
                 <p>Cargando competiciones...</p>
               </article>
             )}
-            {competicionesOrdenadas && (
+            {ultimasCompeticiones && (
               <section className="sectionCompeticiones">
-                {competicionesOrdenadas.length > 0 &&
-                  competicionesOrdenadas.map((competicion) => (
+                {ultimasCompeticiones.length > 0 &&
+                  ultimasCompeticiones.map((competicion) => (
                     <CardCompeticion
                       competicion={competicion}
                       key={competicion._id}
@@ -65,6 +98,7 @@ export const Home = () => {
             )}
           </section>
         </article>
+
         <article className="competicionesHome">
           <section className="titulo">
             <img src={video} alt="Vídeo Icon" />
