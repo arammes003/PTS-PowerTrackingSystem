@@ -7,6 +7,7 @@ import video from "../assets/imgs/icons/video.svg";
 
 import { Fragment, useEffect, useState } from "react";
 import { CardCompeticion } from "../components/CardCompeticion";
+import { Footer } from "../components/Footer";
 
 export const Home = () => {
   const [competiciones, setCompeticiones] = useState([]);
@@ -131,6 +132,8 @@ export const Home = () => {
           </section>
         </article>
         <section className="videos"></section>
+
+        <Footer />
       </main>
     </Fragment>
   );
