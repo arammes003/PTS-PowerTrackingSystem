@@ -81,3 +81,32 @@ export const getCompeticiones = async (req, res) => {
     });
   }
 };
+
+// FUNCION QUE BORRA UN CLUB
+export const deleteCompeticion = async (req, res) => {
+  const idCompeticion = req.params.id; // OBTENEMOS EL ID DE LOS PARAMETROS
+
+  try {
+    const competicion = await Competicion.findByIdAndDelete(idCompeticion); // BUSCAMOS LA COMPETICION A TRAVES DEL ID
+
+    // SI NO EXISTE
+    if (!competicion)
+      return res.status(400).send({
+        ok: false,
+        mensaje: `La competición con id ${idCompeticion} no existe`,
+      });
+    // SI EXISTE SE ELIMINA Y DEVUELVE LOS DATOS DE LA COMPETICIÓN ELIMINADO
+    else
+      return res.status(200).send({
+        ok: true,
+        mensaje: `La competición ${competicion.nombre} ha sido eliminado con éxito`,
+        competicion,
+      });
+  } catch (error) {
+    return res.status(500).send({
+      ok: false,
+      mensaje: "Error en el servidor",
+      error: error.message,
+    });
+  }
+};

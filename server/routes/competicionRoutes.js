@@ -7,6 +7,7 @@ import express from "express";
 import {
   createCompeticion,
   getCompeticiones,
+  deleteCompeticion,
 } from "../controllers/competicionController.js";
 
 // IMPORTAMOS MIDDLEWARES
@@ -22,3 +23,4 @@ compRouter.post(
   createCompeticion
 );
 compRouter.get("/competiciones", getCompeticiones);
+compRouter.delete("/competiciones/:id", deleteCompeticion);

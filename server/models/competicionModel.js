@@ -10,13 +10,21 @@ const CompeticionSchema = new Schema({
     required: true,
     unique: true,
   },
-  localizacion: {
+  ciudad: {
     type: String,
     required: true,
   },
-  fecha: {
+  pais: {
+    type: String,
+    required: true,
+  },
+  fecha_inicio: {
     type: Date,
     required: true,
+  },
+  fecha_fin: {
+    type: Date,
+    required: false,
   },
   imagen: {
     type: String,
