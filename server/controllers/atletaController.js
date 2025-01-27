@@ -3,6 +3,7 @@
 // IMPORTAMOS EL MODELO
 import { Atleta } from "../models/atletaModel.js";
 import { Club } from "../models/clubModel.js";
+import { uploadFile } from "../services/files.js";
 
 // FUNCION QUE CREA UN NUEVO ATLETA
 export const createAtleta = async (req, res) => {
@@ -115,6 +116,7 @@ export const updateAtleta = async (req, res) => {
   const idAtleta = req.params.id; // OBTENEMOS EL ID DEL ATLETA DE LOS PARAMETROS
   const params = req.body; // GUARDAMOS LOS DATOS INTRODUCIDOS EN EL BODY
   const { idNuevoClub } = req.body; // COGEMOS EL ID DEL NUEVO CLUB EN CASO DE QUE VAYA A CAMBIAR
+  const imagen = req.file || (req.files?.imagen ? req.files.imagen[0] : null); // OBTENEMOS LA IMAGEN
 
   try {
     const atleta = await Atleta.findById(idAtleta); // BUSCAMOS EL ATLETA EN LA BBDD
@@ -144,10 +146,20 @@ export const updateAtleta = async (req, res) => {
           mensaje: "El club al que deseas cambiar no existe",
         });
 
+      if (imagen) {
+        const imagenUrl = await uploadFile(imagen, "imagenAtleta"); // LLAMAMOS A NUESTRO SERVICIO PARA ALMACENAR LA IMAGEN EN SUPABASE
+        atleta.imagen = imagenUrl;
+      }
+
       // SI EXISTE
       atleta.club = nuevoClub._id; // ASIGNAMOS AL ATLETA EL ID DEL NUEVO CLUB
       nuevoClub.atletas.push(atleta._id); // INTRODUCIMOS EN EL ARRAY DE ATLETAS DEL CLUB EL NUEVO ATLETA
       await nuevoClub.save(); // GUARDAMOS LOS CAMBIOS DEL CLUB
+    }
+
+    if (imagen) {
+      const imagenUrl = await uploadFile(imagen, "imagenAtleta"); // LLAMAMOS A NUESTRO SERVICIO PARA ALMACENAR LA IMAGEN EN SUPABASE
+      atleta.imagen = imagenUrl; //
     }
 
     // ACTUALIZAMOS LOS DEMAS CAMPOS DEL USUARIO SI HAY
