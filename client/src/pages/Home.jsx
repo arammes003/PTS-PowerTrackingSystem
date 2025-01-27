@@ -34,17 +34,18 @@ export const Home = () => {
 
   const hoy = new Date();
 
-  // Filtrar competiciones futuras (próximas)
+  // FILTRAMOS COMPETICIONES POR PROXIMAS
   const proximasCompeticiones = competiciones
-    .filter((competicion) => new Date(competicion.fecha) >= hoy)
-    .sort((a, b) => new Date(a.fecha) - new Date(b.fecha)) // Orden ascendente (más próximas primero)
+    .filter((competicion) => new Date(competicion.fecha_inicio) >= hoy)
+    .sort((a, b) => new Date(a.fecha_inicio) - new Date(b.fecha_inicio)) // ORDENAMOS DE MAS PROXIMAS PRIMERO
     .slice(0, 4);
 
-  // Filtrar competiciones pasadas (últimas)
+  // FILTRAMOS COMPETICIONES POR MAS RECIENTES
   const ultimasCompeticiones = competiciones
-    .filter((competicion) => new Date(competicion.fecha) < hoy)
-    .sort((a, b) => new Date(b.fecha) - new Date(a.fecha)) // Orden descendente (más recientes primero)
-    .slice(0, 4);
+    .filter((competicion) => new Date(competicion.fecha_inicio) < hoy)
+    .sort((a, b) => new Date(b.fecha_inicio) - new Date(a.fecha_inicio)) // ORDENAMOS POR MAS RECIENTES PRIMERO
+    .slice(0, 5);
+
   return (
     <Fragment>
       <Header />
@@ -55,7 +56,7 @@ export const Home = () => {
             <img src={trophy} alt="Trophy Icon" />
             <h1>Próximas competiciones</h1>
           </section>
-          <section className="sectionAthletes">
+          <section className="sectionCompeticiones">
             {loading && (
               <article className="loading">
                 <section className="loader"></section>
@@ -79,7 +80,7 @@ export const Home = () => {
             <img src={trophy} alt="Trophy Icon" />
             <h1>Últimas competiciones</h1>
           </section>
-          <section className="sectionAthletes">
+          <section className="sectionCompeticiones">
             {loading && (
               <article className="loading">
                 <section className="loader"></section>
