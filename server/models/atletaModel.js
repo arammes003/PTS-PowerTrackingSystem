@@ -24,22 +24,13 @@ const AtletaSchema = new Schema({
     required: true,
   },
   categoria: {
-    type: Number,
+    type: String,
     required: true,
   },
   genero: {
     type: String,
     required: true,
-  },
-  victorias: {
-    type: Number,
-    required: false,
-    default: 0,
-  },
-  podios: {
-    type: Number,
-    required: false,
-    default: 0,
+    enum: ["Masculino", "Femenino"],
   },
   trayectoria: {
     type: String,
@@ -69,10 +60,20 @@ const AtletaSchema = new Schema({
     type: Number,
     required: true,
   },
-  competiciones: [
+  historial_resultados: [
     {
-      type: Schema.Types.ObjectId,
-      ref: "Competicion",
+      competicion: {
+        type: Schema.Types.ObjectId,
+        ref: "Competicion",
+      },
+      nombre_competicion: String,
+      fecha: Date,
+      squat: Number,
+      bench_press: Number,
+      deadlift: Number,
+      total: Number,
+      peso_atleta: Number,
+      gl_points: Number,
     },
   ],
 });

@@ -36,11 +36,15 @@ const CompeticionSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: "Atleta",
       },
+      categoria: {
+        type: String,
+        required: true,
+      },
       squat: {
         type: Number,
         required: true,
       },
-      benchPress: {
+      bench_press: {
         type: Number,
         required: true,
       },
@@ -49,6 +53,14 @@ const CompeticionSchema = new Schema({
         required: true,
       },
       total: {
+        type: Number,
+        required: true,
+      },
+      peso_atleta: {
+        type: Number,
+        required: true,
+      },
+      gl_points: {
         type: Number,
         required: true,
       },
