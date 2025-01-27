@@ -8,6 +8,7 @@ import {
   createCompeticion,
   getCompeticiones,
   deleteCompeticion,
+  updateCompeticion,
 } from "../controllers/competicionController.js";
 
 // IMPORTAMOS MIDDLEWARES
@@ -24,3 +25,4 @@ compRouter.post(
 );
 compRouter.get("/competiciones", getCompeticiones);
 compRouter.delete("/competiciones/:id", deleteCompeticion);
+compRouter.put("/competiciones/:id", updateCompeticion);

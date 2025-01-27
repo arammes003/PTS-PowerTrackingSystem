@@ -1,6 +1,7 @@
 // FICHERO QUE TIENE EL CRUD DE LAS COMPETICIONES
 
 // IMPORTAMOS EL MODELO
+import { Atleta } from "../models/atletaModel.js";
 import { Competicion } from "../models/competicionModel.js";
 
 // IMPORTAMOS SERVICIO PARA SUBIR ARCHIVOS
@@ -102,6 +103,63 @@ export const deleteCompeticion = async (req, res) => {
         mensaje: `La competición ${competicion.nombre} ha sido eliminado con éxito`,
         competicion,
       });
+  } catch (error) {
+    return res.status(500).send({
+      ok: false,
+      mensaje: "Error en el servidor",
+      error: error.message,
+    });
+  }
+};
+
+// METODO ACTUALIZAR COMPETICION
+export const updateCompeticion = async (req, res) => {
+  const idCompeticion = req.params.id; // ID DE LA COMPETICION OBTENIDO DE LOS PARAMETROS
+  const params = req.body; // DATOS ENVIADOS EN EL BODY
+
+  try {
+    // BUSCAMOS LA COMPETICION Y ACTUASLIZAMOS CON LOS DATOS OBTENIDOS
+    const competicion = await Competicion.findByIdAndUpdate(
+      idCompeticion,
+      params,
+      { new: true }
+    );
+
+    // SI NO EXISTE, DEVOLVEMOS EL ERROR
+    if (!competicion) {
+      return res.status(404).send({
+        ok: false,
+        mensaje: `Esa competición no existe`,
+      });
+    }
+
+    // RECORREMOS LOS RESULTADOS DE LA COMPETICION PARA AÑADIR LOS RESULTADOS DE CADA ATLETA
+    for (const resultado of params.resultados) {
+      await Atleta.findByIdAndUpdate(
+        resultado.atleta,
+        {
+          $push: {
+            historial_resultados: {
+              competicion: idCompeticion,
+              squat: resultado.squat,
+              bench_press: resultado.bench_press,
+              deadlift: resultado.deadlift,
+              total: resultado.total,
+              peso_atleta: resultado.peso_atleta,
+              gl_points: resultado.gl_points,
+            },
+          },
+        },
+        { new: true }
+      );
+    }
+
+    // ENIAMOS LA RESPUESTA DE EXITO
+    res.status(200).send({
+      ok: true,
+      mensaje: `Se han actualizado correctamente los resultados de ${competicion.nombre}`,
+      competicion,
+    });
   } catch (error) {
     return res.status(500).send({
       ok: false,
