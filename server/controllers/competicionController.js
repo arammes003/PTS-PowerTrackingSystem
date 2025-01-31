@@ -133,31 +133,38 @@ export const updateCompeticion = async (req, res) => {
       });
     }
 
-    // RECORREMOS LOS RESULTADOS DE LA COMPETICION PARA AÑADIR LOS RESULTADOS DE CADA ATLETA
-    for (const resultado of params.resultados) {
-      await Atleta.findByIdAndUpdate(
-        resultado.atleta,
-        {
-          $push: {
-            historial_resultados: {
-              competicion: idCompeticion,
-              squat: resultado.squat,
-              bench_press: resultado.bench_press,
-              deadlift: resultado.deadlift,
-              total: resultado.total,
-              peso_atleta: resultado.peso_atleta,
-              gl_points: resultado.gl_points,
+    if (params.resultado) {
+      // RECORREMOS LOS RESULTADOS DE LA COMPETICION PARA AÑADIR LOS RESULTADOS DE CADA ATLETA
+      for (const resultado of params.resultados) {
+        await Atleta.findByIdAndUpdate(
+          resultado.atleta,
+          {
+            $push: {
+              historial_resultados: {
+                competicion: idCompeticion,
+                squat: resultado.squat,
+                bench_press: resultado.bench_press,
+                deadlift: resultado.deadlift,
+                total: resultado.total,
+                peso_atleta: resultado.peso_atleta,
+                gl_points: resultado.gl_points,
+              },
             },
           },
-        },
-        { new: true }
-      );
+          { new: true }
+        );
+        // ENIAMOS LA RESPUESTA DE EXITO
+        res.status(200).send({
+          ok: true,
+          mensaje: `Se han actualizado correctamente los resultados de ${competicion.nombre}`,
+          competicion,
+        });
+      }
     }
 
-    // ENIAMOS LA RESPUESTA DE EXITO
     res.status(200).send({
       ok: true,
-      mensaje: `Se han actualizado correctamente los resultados de ${competicion.nombre}`,
+      mensaje: `Se ha actualizado correctamente ${competicion.nombre}`,
       competicion,
     });
   } catch (error) {

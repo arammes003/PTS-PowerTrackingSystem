@@ -26,6 +26,10 @@ const CompeticionSchema = new Schema({
     type: Date,
     required: false,
   },
+  nivel: {
+    type: String,
+    required: true,
+  },
   imagen: {
     type: String,
     required: true,
