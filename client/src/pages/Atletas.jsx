@@ -1,9 +1,5 @@
 import { Fragment, useEffect, useState } from "react";
-
-// COMPONENTES
-import { Header } from "../components/Header";
-import { Footer } from "../components/Footer";
-import { CardAtleta } from "../components/CardAtleta";
+import { useNavigate } from "react-router-dom";
 
 // ICONOS
 import search from "../assets/imgs/icons/search.svg";
@@ -12,7 +8,11 @@ import menu from "../assets/imgs/icons/menu.svg";
 // CSS
 import "../styles/CardAtleta.css";
 import "../styles/Atletas.css";
-import { useNavigate } from "react-router-dom";
+
+// COMPONENTES
+import { Header } from "../components/Header";
+import { Footer } from "../components/Footer";
+import { CardAtleta } from "../components/CardAtleta";
 
 export const Atletas = () => {
   const [atletas, setAtletas] = useState([]);
@@ -79,15 +79,17 @@ export const Atletas = () => {
       )}
       {atletasMasculinos && (
         <section className="sectionAthletes">
-          {atletasMasculinos.length > 0 &&
-            atletasMasculinos.map((atleta) => (
-              <article
-                key={atleta._id}
-                onClick={() => navigate(`/atletas/${atleta._id}`)}
-              >
-                <CardAtleta atleta={atleta} key={atleta._id} />
-              </article>
-            ))}
+          {atletasMasculinos.length >
+            0(
+              atletasMasculinos.map((atleta) => (
+                <article
+                  key={atleta._id}
+                  onClick={() => navigate(`/atletas/${atleta._id}`)}
+                >
+                  <CardAtleta atleta={atleta} key={atleta._id} />
+                </article>
+              ))
+            )}
         </section>
       )}
 
@@ -101,15 +103,17 @@ export const Atletas = () => {
       )}
       {atletasFemeninos && (
         <section className="sectionAthletes">
-          {atletasFemeninos.length > 0 &&
-            atletasFemeninos.map((atleta) => (
-              <article
-                key={atleta._id}
-                onClick={() => navigate(`/atletas/${atleta._id}`)}
-              >
-                <CardAtleta atleta={atleta} key={atleta._id} />
-              </article>
-            ))}
+          {atletasFemeninos.length >
+            0(
+              atletasFemeninos.map((atleta) => (
+                <article
+                  key={atleta._id}
+                  onClick={() => navigate(`/atletas/${atleta._id}`)}
+                >
+                  <CardAtleta atleta={atleta} key={atleta._id} />
+                </article>
+              ))
+            )}
         </section>
       )}
 
