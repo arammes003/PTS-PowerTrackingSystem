@@ -1,14 +1,23 @@
-import { Header } from "../components/Header";
-import "../styles/Home.css";
+// REACT
+import { Fragment, useEffect, useState } from "react";
+
+// REACT-MULTI-CAROUSEL
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
 
 // ICONOS
 import trophy from "../assets/imgs/icons/trophy.svg";
 import video from "../assets/imgs/icons/video.svg";
 
-import { Fragment, useEffect, useState } from "react";
+// CSS
+import "../styles/Home.css";
+
+// COMPONENTES
+import { Header } from "../components/Header";
 import { CardCompeticion } from "../components/CardCompeticion";
 import { Footer } from "../components/Footer";
 
+// PAGINA INICIO
 export const Home = () => {
   const [competiciones, setCompeticiones] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -31,6 +40,29 @@ export const Home = () => {
         setCompeticiones([]);
       });
   }, []);
+
+  const responsive = {
+    superLargeDesktop: {
+      breakpoint: { max: 4000, min: 3000 },
+      items: 5,
+    },
+    monitor: {
+      breakpoint: { max: 2000, min: 1024 },
+      items: 4,
+    },
+    desktop: {
+      breakpoint: { max: 1700, min: 1024 },
+      items: 3,
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 464 },
+      items: 2,
+    },
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 1,
+    },
+  };
 
   const hoy = new Date();
 
@@ -65,13 +97,15 @@ export const Home = () => {
             )}
             {proximasCompeticiones && (
               <section className="sectionCompeticiones">
-                {proximasCompeticiones.length > 0 &&
-                  proximasCompeticiones.map((competicion) => (
-                    <CardCompeticion
-                      competicion={competicion}
-                      key={competicion._id}
-                    />
-                  ))}
+                <Carousel responsive={responsive} infinite={true}>
+                  {proximasCompeticiones.length > 0 &&
+                    proximasCompeticiones.map((competicion) => (
+                      <CardCompeticion
+                        competicion={competicion}
+                        key={competicion._id}
+                      />
+                    ))}
+                </Carousel>
               </section>
             )}
           </section>
@@ -89,13 +123,15 @@ export const Home = () => {
             )}
             {ultimasCompeticiones && (
               <section className="sectionCompeticiones">
-                {ultimasCompeticiones.length > 0 &&
-                  ultimasCompeticiones.map((competicion) => (
-                    <CardCompeticion
-                      competicion={competicion}
-                      key={competicion._id}
-                    />
-                  ))}
+                <Carousel responsive={responsive} infinite={true}>
+                  {ultimasCompeticiones.length > 0 &&
+                    ultimasCompeticiones.map((competicion) => (
+                      <CardCompeticion
+                        competicion={competicion}
+                        key={competicion._id}
+                      />
+                    ))}
+                </Carousel>
               </section>
             )}
           </section>
