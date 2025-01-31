@@ -57,6 +57,7 @@ export const CardCompeticion = ({ competicion }) => {
           {competicion.ciudad}, {competicion.pais} |{" "}
           {formatearFecha(competicion.fecha_inicio, competicion.fecha_fin)}
         </p>
+        <p>{competicion.nivel}</p>
       </section>
     </article>
   );
@@ -71,6 +72,7 @@ CardCompeticion.propTypes = {
     pais: PropTypes.string.isRequired,
     fecha_inicio: PropTypes.string.isRequired,
     fecha_fin: PropTypes.string,
+    nivel: PropTypes.string.isRequired,
     imagen: PropTypes.string.isRequired,
   }),
 };

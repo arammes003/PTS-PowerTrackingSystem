@@ -4,11 +4,12 @@
   box-shadow: 0 4px 8px var(--primary-500);
   overflow: hidden;
   width: 400px;
-  height: 500px;
+  height: 525px;
   text-align: center;
   margin: 10px;
   transition: 1s ease;
   cursor: pointer;
+  color: var(--text);
 }
 
 .cardCompeticion:hover {
@@ -26,12 +27,14 @@
   padding: 10px;
 }
 
+.infoCompeticion p:nth-child(3) {
+  font-size: 1.5em;
+}
+
 .infoCompeticion h2 {
   font-size: 1.7em;
-  color: var(--text);
 }
 
 .ubicacionComp {
   font-size: 1em;
-  color: var(--text);
 }
