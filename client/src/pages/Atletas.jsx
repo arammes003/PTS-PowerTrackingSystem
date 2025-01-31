@@ -28,6 +28,8 @@ export const Atletas = () => {
         if (Array.isArray(data.atletas)) {
           setTimeout(() => {
             setAtletas(data.atletas);
+            console.log(data);
+
             setLoading(false);
           }, 3000);
         } else {
@@ -39,6 +41,14 @@ export const Atletas = () => {
         setAtletas([]);
       });
   }, []);
+
+  // Filtrar atletas masculinos y femeninos
+  const atletasMasculinos = atletas.filter(
+    (atleta) => atleta.genero.toLowerCase() === "masculino"
+  );
+  const atletasFemeninos = atletas.filter(
+    (atleta) => atleta.genero.toLowerCase() === "femenino"
+  );
 
   return (
     <Fragment>
@@ -67,10 +77,32 @@ export const Atletas = () => {
           <p>Cargando atletas...</p>
         </article>
       )}
-      {atletas && (
+      {atletasMasculinos && (
         <section className="sectionAthletes">
-          {atletas.length > 0 &&
-            atletas.map((atleta) => (
+          {atletasMasculinos.length > 0 &&
+            atletasMasculinos.map((atleta) => (
+              <article
+                key={atleta._id}
+                onClick={() => navigate(`/atletas/${atleta._id}`)}
+              >
+                <CardAtleta atleta={atleta} key={atleta._id} />
+              </article>
+            ))}
+        </section>
+      )}
+
+      <h1 className="tituloAtletas">Mejores atletas femeninas</h1>
+
+      {loading && (
+        <article className="loading">
+          <section className="loader"></section>
+          <p>Cargando atletas...</p>
+        </article>
+      )}
+      {atletasFemeninos && (
+        <section className="sectionAthletes">
+          {atletasFemeninos.length > 0 &&
+            atletasFemeninos.map((atleta) => (
               <article
                 key={atleta._id}
                 onClick={() => navigate(`/atletas/${atleta._id}`)}
