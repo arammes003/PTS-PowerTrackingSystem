@@ -84,24 +84,28 @@ export const getAtletas = async (req, res) => {
 
 // FUNCION QUE DEVUELVE UN ATLETA EN ESPECIFICO
 export const getAtletaById = async (req, res) => {
-  const idAtleta = req.params.id; // OBTENEMOS EL ID DEL ATLETA DE LOS PARAMETROS
+  // Obtenemos el id de los parametros
+  const idAtleta = req.params.id;
 
+  // Bloque try/catch donde realizamos la logica para encontrar el atleta
   try {
-    const atleta = await Atleta.findById(idAtleta); // BUSCAMOS EL ATLETA EN NUESTRA BBDD
+    // 1.- Comprobamos que el atleta existe y usamos populate para que obtenga todos los datos del club referenciado
+    const atleta = await Atleta.findById(idAtleta).populate("club");
 
-    // SI NO EXISTE
+    // 2.- Comprobamos que exista, en caso de que no:
     if (!atleta)
       return res.status(404).send({
         ok: false,
         mensaje: `Ese atleta no existe`,
       });
-    // SI EXISTE DEVOLVEMOS LOS DATOS DEL ATLETA
+    // 3.- Si existe mostramos un mensaje de informacion de que todo ha ido bien y devolvemos los datos del atleta
     else
       res.status(200).send({
         ok: true,
         mensaje: `Datos de ${atleta.nombre} con dni ${atleta.dni} obtenidos con éxito`,
         atleta,
       });
+    // 4.= Cacheamos si hay algun error a la hora de hacer la peticion
   } catch (error) {
     return res.status(500).send({
       ok: false,
