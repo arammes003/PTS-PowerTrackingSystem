@@ -114,18 +114,18 @@ export const deleteCompeticion = async (req, res) => {
 
 // METODO ACTUALIZAR COMPETICION
 export const updateCompeticion = async (req, res) => {
-  const idCompeticion = req.params.id; // ID DE LA COMPETICION OBTENIDO DE LOS PARAMETROS
-  const params = req.body; // DATOS ENVIADOS EN EL BODY
+  const idCompeticion = req.params.id; // ID de la competición obtenido de los parámetros
+  const params = req.body; // Datos enviados en el body
 
   try {
-    // BUSCAMOS LA COMPETICION Y ACTUASLIZAMOS CON LOS DATOS OBTENIDOS
+    // Buscamos la competición y actualizamos con los datos obtenidos
     const competicion = await Competicion.findByIdAndUpdate(
       idCompeticion,
       params,
       { new: true }
     );
 
-    // SI NO EXISTE, DEVOLVEMOS EL ERROR
+    // Si no existe, devolvemos error
     if (!competicion) {
       return res.status(404).send({
         ok: false,
@@ -133,10 +133,11 @@ export const updateCompeticion = async (req, res) => {
       });
     }
 
-    if (params.resultado) {
-      // RECORREMOS LOS RESULTADOS DE LA COMPETICION PARA AÑADIR LOS RESULTADOS DE CADA ATLETA
-      for (const resultado of params.resultados) {
-        await Atleta.findByIdAndUpdate(
+    // Si hay resultados en el body, actualizamos el historial de los atletas
+    if (params.resultados && Array.isArray(params.resultados)) {
+      // Creamos un array de promesas para actualizar los atletas
+      const actualizaciones = params.resultados.map(async (resultado) => {
+        return Atleta.findByIdAndUpdate(
           resultado.atleta,
           {
             $push: {
@@ -153,18 +154,16 @@ export const updateCompeticion = async (req, res) => {
           },
           { new: true }
         );
-        // ENIAMOS LA RESPUESTA DE EXITO
-        res.status(200).send({
-          ok: true,
-          mensaje: `Se han actualizado correctamente los resultados de ${competicion.nombre}`,
-          competicion,
-        });
-      }
+      });
+
+      // Esperamos a que todas las actualizaciones se completen antes de continuar
+      await Promise.all(actualizaciones);
     }
 
+    // Enviamos la respuesta después de actualizar todos los atletas
     res.status(200).send({
       ok: true,
-      mensaje: `Se ha actualizado correctamente ${competicion.nombre}`,
+      mensaje: `Se ha actualizado correctamente ${competicion.nombre} y los resultados de los atletas`,
       competicion,
     });
   } catch (error) {
