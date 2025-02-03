@@ -77,19 +77,16 @@ export const Atletas = () => {
           <p>Cargando atletas...</p>
         </article>
       )}
-      {atletasMasculinos && (
+      {atletasMasculinos && atletasMasculinos.length > 0 && (
         <section className="sectionAthletes">
-          {atletasMasculinos.length >
-            0(
-              atletasMasculinos.map((atleta) => (
-                <article
-                  key={atleta._id}
-                  onClick={() => navigate(`/atletas/${atleta._id}`)}
-                >
-                  <CardAtleta atleta={atleta} key={atleta._id} />
-                </article>
-              ))
-            )}
+          {atletasMasculinos.map((atleta) => (
+            <article
+              key={atleta._id}
+              onClick={() => navigate(`/atletas/${atleta._id}`)}
+            >
+              <CardAtleta atleta={atleta} />
+            </article>
+          ))}
         </section>
       )}
 
@@ -101,19 +98,16 @@ export const Atletas = () => {
           <p>Cargando atletas...</p>
         </article>
       )}
-      {atletasFemeninos && (
+      {atletasFemeninos && atletasFemeninos.length > 0 && (
         <section className="sectionAthletes">
-          {atletasFemeninos.length >
-            0(
-              atletasFemeninos.map((atleta) => (
-                <article
-                  key={atleta._id}
-                  onClick={() => navigate(`/atletas/${atleta._id}`)}
-                >
-                  <CardAtleta atleta={atleta} key={atleta._id} />
-                </article>
-              ))
-            )}
+          {atletasFemeninos.map((atleta) => (
+            <article
+              key={atleta._id}
+              onClick={() => navigate(`/atletas/${atleta._id}`)}
+            >
+              <CardAtleta atleta={atleta} />
+            </article>
+          ))}
         </section>
       )}
 

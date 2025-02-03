@@ -54,6 +54,10 @@ export const Atleta = () => {
     gl_points: { valor: 0 },
   }); // ARRAY DE OBJETOS QUE CONTIENE CADA CAMPO OBTENIDO DEL HISTORIAL_COMPETICIONES
 
+  const [competiciones, setCompeticiones] = useState(0);
+  const [victorias, setVictorias] = useState(0);
+  const [podios, setPodios] = useState(0);
+
   // COMPROBAMOS QUE HAYA ATLETAS Y COMPARAMOS SUS RESULTADOS ACTUALES CON LOS DE LAS COMPETICIONES, PARA ASI ENCONTRAR EL MAYOR
   useEffect(() => {
     if (atleta?.historial_resultados?.length > 0) {
@@ -102,10 +106,14 @@ export const Atleta = () => {
         },
         {}
       );
-
       setMejoresResultados(mejores);
+      setCompeticiones(atleta.historial_resultados.length);
+      let victorias = Math.floor(Math.random() * competiciones);
+      setVictorias(victorias);
+      let podios = Math.floor(Math.random() * competiciones);
+      setPodios(podios);
     }
-  }, [atleta]);
+  }, [atleta, competiciones]);
 
   return (
     <Fragment>
@@ -186,15 +194,15 @@ export const Atleta = () => {
               <article className="estadisticas">
                 <section>
                   <h3>COMPETICIONES</h3>
-                  <p>{atleta.competiciones}</p>
+                  <p>{competiciones}</p>
                 </section>
                 <section>
                   <h3>VICTORIAS</h3>
-                  <p>{atleta.victorias}</p>
+                  <p>{victorias}</p>
                 </section>
                 <section>
                   <h3>PODIOS</h3>
-                  <p>{atleta.podios}</p>
+                  <p>{podios}</p>
                 </section>
               </article>
             </article>
