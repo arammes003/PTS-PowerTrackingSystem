@@ -30,26 +30,6 @@ const ClubSchema = new Schema({
     type: String,
     required: true,
   },
-  victorias: {
-    type: Number,
-    required: false,
-  },
-  podios: {
-    type: Number,
-    required: false,
-  },
-  partNacionales: {
-    type: Number,
-    required: false,
-  },
-  partInternacionales: {
-    type: Number,
-    required: false,
-  },
-  records: {
-    type: Number,
-    required: false,
-  },
   avatar: {
     type: String,
     required: false,
